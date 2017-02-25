@@ -55,12 +55,9 @@ def check_classes_and_enrol(session, login_token, student_number, subject, class
     if response.status_code == 200:
         classes = response.json()
 
-	availabilities = ''
         for class_key in sorted(classes.keys())[0:3]:
-            availabilities += classes[class_key]['selectable'] + '  '
             if classes[class_key]['selectable'] == 'available':
                 register_subject(session, login_token, student_number, class_key)
-	print availabilities
     else:
         raise requests.RequestException('Unable to fetch tutorials.')
 
@@ -114,5 +111,4 @@ if __name__ == '__main__':
     try:
         main()
     except:
-	print 'Unexpectedly exited the script.'
         send_mail('Unexpectedly exited the script', 'Unexpected exited the script')
