@@ -42,6 +42,7 @@ def has_env_variables():
         'TIMETABLE_BOT_SUBJECT',
         'TIMETABLE_BOT_CLASS_TYPE',
         'TIMETABLE_BOT_TO_EMAIL',
+        'TIMETABLE_BOT_ACTIVITY_CODES', # Comma separated list of activity codes e.g. 03,05 (leading zeros required!)
         'GMAIL_USERNAME',
         'GMAIL_PASSWORD',
         'GMAIL_SMTP_SERVER',
