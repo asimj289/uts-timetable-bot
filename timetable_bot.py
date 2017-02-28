@@ -136,13 +136,18 @@ def main():
     class_type = os.environ['TIMETABLE_BOT_CLASS_TYPE']
     activity_codes = os.environ['TIMETABLE_BOT_ACTIVITY_CODES'].split(',')
 
+    if os.environ.get('TIMETABLE_BOT_PING_FREQUENCY'):
+        ping_frequency = int(os.environ['TIMETABLE_BOT_PING_FREQUENCY'])
+    else:
+        ping_frequency = 5
+
     session = requests.Session()
     login_token = login(session, student_number, password)
 
     print 'Attempting to register if class becomes available.'
     while True:
         check_classes_and_enrol(session, login_token, student_number, subject, class_type, activity_codes)
-        time.sleep(5)
+        time.sleep(ping_frequency)
         print 'Still attempting.'
 
 
