@@ -5,7 +5,7 @@ import time
 
 from utils import request_failed, has_env_variables, send_smtp_mail
 
-BASE_URL = 'https://mytimetable.uts.edu.au/aplus2018/'
+BASE_URL = 'https://mytimetable.uts.edu.au/aplus2019/'
 
 
 def send_mail(subject, message_body):
