@@ -1,8 +1,8 @@
 import requests
 import os
 import smtplib
-from email.MIMEMultipart import MIMEMultipart
-from email.MIMEText import MIMEText
+from email.mime.multipart import MIMEMultipart
+from email.mime.text import MIMEText
 
 
 def print_failed_response_details(failed_response):
@@ -12,17 +12,17 @@ def print_failed_response_details(failed_response):
     :type failed_response: requests.Response
     :return:
     """
-    print '---------------'
-    print 'REQUEST DETAILS'
-    print '---------------'
-    print '  REQUEST:'
-    print '    Headers: %s' % (failed_response.request.headers,)
-    print '    Body: %s' % (failed_response.request.body, )
-    print ''
-    print '  RESPONSE:'
-    print '    Headers: %s' % (failed_response.headers,)
-    print '    Body: %s' % (failed_response.content,)
-    print ''
+    print('---------------')
+    print('REQUEST DETAILS')
+    print('---------------')
+    print('  REQUEST:')
+    print('    Headers: %s' % (failed_response.request.headers,))
+    print('    Body: %s' % (failed_response.request.body, ))
+    print('')
+    print('  RESPONSE:')
+    print('    Headers: %s' % (failed_response.headers,))
+    print('    Body: %s' % (failed_response.content,))
+    print('')
 
 
 def request_failed(failed_response, message=None, print_details=True):
@@ -51,8 +51,8 @@ def has_env_variables():
 
     environment_variables_fulfilled = True
     for env_variable in required_env_variables:
-        if not os.environ.has_key(env_variable):
-            print '%s environment variable must be set.' % (env_variable,)
+        if env_variable not in os.environ:
+            print('%s environment variable must be set.' % (env_variable,))
             environment_variables_fulfilled = False
 
     return environment_variables_fulfilled
