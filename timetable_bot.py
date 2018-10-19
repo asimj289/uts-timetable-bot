@@ -5,7 +5,7 @@ import time
 
 from utils import request_failed, has_env_variables, send_smtp_mail
 
-BASE_URL = 'https://mytimetable.uts.edu.au/aplus2017/'
+BASE_URL = 'https://mytimetable.uts.edu.au/aplus2018/'
 
 
 def send_mail(subject, message_body):
@@ -53,8 +53,8 @@ def register_subject(session, login_token, student_code, class_key):
 
     response = session.post(enrol_subject_url, params=params, data=data)
     if response.status_code == 200:
-        print 'Updated the subject. Successfully registered for: %s.' % class_key
-        print 'Sending email notification now.'
+        print('Updated the subject. Successfully registered for: %s.' % class_key)
+        print('Sending email notification now.')
         send_mail(subject='Updated the subject!', message_body='Updated the subject!')
         sys.exit(0)
     else:
@@ -89,7 +89,7 @@ def check_classes_and_enrol(session, login_token, student_number, subject, class
                 if class1['selectable'] == 'available':
                     register_subject(session, login_token, student_number, class_key)
                 availabilities += 'Activity code %s: %s   ' % (class1['activity_code'], class1['selectable'])
-        print availabilities
+        print(availabilities)
     else:
         raise requests.RequestException('Unable to fetch tutorials.')
 
@@ -120,7 +120,7 @@ def login(session, student_number, password):
 
     response = session.post(login_url, data=data)
     if response.status_code == 200:
-        print 'Login successful'
+        print('Login successful')
         return response.json()['token']
     else:
         request_failed(failed_response=response, message='Login failed.')
@@ -144,11 +144,11 @@ def main():
     session = requests.Session()
     login_token = login(session, student_number, password)
 
-    print 'Attempting to register if class becomes available.'
+    print('Attempting to register if class becomes available.')
     while True:
         check_classes_and_enrol(session, login_token, student_number, subject, class_type, activity_codes)
         time.sleep(ping_frequency)
-        print 'Still attempting.'
+        print('Still attempting.')
 
 
 if __name__ == '__main__':
@@ -159,5 +159,5 @@ if __name__ == '__main__':
         # Don't want to send an email if the user ctrl+c exits the script.
         pass
     except:
-        print 'Unexpectedly exited the script.'
+        print('Unexpectedly exited the script.')
         send_mail('Unexpectedly exited the script', 'Unexpected exited the script')
